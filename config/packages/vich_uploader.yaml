@@ -1,0 +1,14 @@
+parameters:
+  media_upload_directory: '/uploads'
+  media_upload_full_path: '%kernel.project_dir%/public%media_upload_directory%'
+  assets_directory: '/assets/build'
+
+vich_uploader:
+  db_driver: orm
+  mappings:
+    file:
+      namer:              vich_uploader.namer_uniqid
+      uri_prefix:         /uploads
+      upload_destination: '%media_upload_full_path%'
+      delete_on_update:   true
+      delete_on_remove: true
