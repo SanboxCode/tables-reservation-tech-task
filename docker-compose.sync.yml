@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+    php:
+        volumes:
+            - booking:/var/www/symfony
+            - ./logs/symfony:/var/www/symfony/var/logs
+            - ./key/ssh/id_rsa:/root/.ssh/id_rsa:ro
+volumes:
+  booking:
+    external: true
