@@ -3,35 +3,43 @@
 {% block title %}Restaurant index{% endblock %}
 
 {% block body %}
-    <h1>Restaurant index</h1>
+    <h1>Restaurants</h1>
 
     <table class="table">
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Status</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Title</th>
+            <th>Photo</th>
+            <th>Identification number</th>
+            <th>Status</th>
+            <th>Active tables</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for restaurant in restaurants %}
             <tr>
-                <td>{{ restaurant.id }}</td>
                 <td>{{ restaurant.title }}</td>
-                <td>{{ restaurant.status }}</td>
+                {% if restaurant.media is not null %}
+                    <td>
+                        <img class="list-image" src="{{ asset(getMediaUploadPath(restaurant.media.filename)) }}">
+                    </td>
+                {% endif %}
+                <td>{{ restaurant.id }}</td>
+                <td>{{ restaurant.status|status }}</td>
+                <td>{{ restaurant.getActiveTables }}</td>
                 <td>
-                    <a href="{{ path('restaurant_show', {'id': restaurant.id}) }}">show</a>
-                    <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a>
+                    <a class="btn btn-secondary" href="{{ path('app_restaurant_show', {'id': restaurant.id}) }}">show</a>
+                    <a class="btn btn-secondary" href="{{ path('app_restaurant_edit', {'id': restaurant.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="4">no records found</td>
+                <td colspan="4">No records found</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('restaurant_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('app_restaurant_new') }}">Create new</a>
 {% endblock %}

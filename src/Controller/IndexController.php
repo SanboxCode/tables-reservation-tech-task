@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Form\User\LoginType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +17,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class IndexController extends AbstractController
 {
     /**
-     * @Route("/")
+     * @Route("/", name = "app_home")
      *
      * @param AuthorizationCheckerInterface $authorizationChecker
      * @param RouterInterface               $router
@@ -34,26 +33,29 @@ class IndexController extends AbstractController
         AuthenticationUtils $authenticationUtils
     ) {
         if ($authorizationChecker->isGranted('ROLE_USER')) {
-            return new RedirectResponse($router->generate('app_dashboard_dashboard_index'));
+            return new RedirectResponse($router->generate('app_restaurant_index'));
         }
 
         $form = $formFactory->create(
             LoginType::class,
             [
-                'email' => $authenticationUtils->getLastUsername(),
+                'username' => $authenticationUtils->getLastUsername(),
             ]
         );
 
-        if (null !== $error = $authenticationUtils->getLastAuthenticationError(true)) {
-            $form->addError(new FormError($error->getMessage(), $error->getMessageKey(), $error->getMessageData()));
-        }
+        return $this->render(
+            'user/login.html.twig',
+            [
+                'form' => $form->createView(),
+            ]
+        );
+    }
 
-        return
-            $this->render(
-                'home/index.html.twig',
-                [
-                    'form' => $form->createView(),
-                ]
-            );
+    /**
+     * @Route("/logout", name="app_logout")
+     */
+    public function logout()
+    {
+        throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
 }

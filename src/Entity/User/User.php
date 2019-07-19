@@ -115,6 +115,18 @@ class User implements UserInterface
     }
 
     /**
+     * @param string $password
+     *
+     * @return User
+     */
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     public function getRoles()
@@ -128,6 +140,18 @@ class User implements UserInterface
     public function getUsername()
     {
         return $this->username;
+    }
+
+    /**
+     * @param string $username
+     *
+     * @return User
+     */
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
     }
 
     public function eraseCredentials()

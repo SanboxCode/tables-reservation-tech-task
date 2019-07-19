@@ -7,28 +7,32 @@
 
     <table class="table">
         <tbody>
+        <tr>
+            <th>Identification number</th>
+            <td>{{ restaurant.id }}</td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td>{{ restaurant.title }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ restaurant.status|status }}</td>
+        </tr>
+        {% if restaurant.media is not null %}
             <tr>
-                <th>Id</th>
-                <td>{{ restaurant.id }}</td>
+                <th>Photo</th>
+                <td>
+                    <img class="restaurant-img" src="{{ asset(getMediaUploadPath(restaurant.media.filename)) }}">
+                </td>
             </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ restaurant.title }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ restaurant.status|status }}</td>
-            </tr>
+        {% endif %}
         </tbody>
     </table>
 
-    {% if restaurant is defined and restaurant.media is not null %}
-        <img class="news-image" src="{{ asset(getMediaUploadPath(restaurant.media.filename)) }}">
-    {% endif %}
-
-    <a href="{{ path('restaurant_index') }}">back to list</a>
-
-    <a href="{{ path('restaurant_edit', {'id': restaurant.id}) }}">edit</a>
-
     {{ include('restaurant/_delete_form.html.twig') }}
+
+    <a class="btn btn-secondary" href="{{ path('app_restaurant_index') }}">Back to list</a>
+
+    <a class="btn btn-secondary" href="{{ path('app_restaurant_edit', {'id': restaurant.id}) }}">Edit</a>
 {% endblock %}

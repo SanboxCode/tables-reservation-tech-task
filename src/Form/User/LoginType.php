@@ -19,7 +19,7 @@ class LoginType extends AbstractType
             'username',
             TextType::class,
             [
-                'label' => 'login.label.email',
+                'label' => 'Username',
                 'required' => false,
             ]
         );
@@ -27,7 +27,7 @@ class LoginType extends AbstractType
             'password',
             PasswordType::class,
             [
-                'label' => 'login.label.password',
+                'label' => 'Password',
                 'required' => false,
             ]
         );

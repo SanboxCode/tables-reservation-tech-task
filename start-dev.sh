@@ -9,3 +9,5 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
 else
 	docker-compose up -d
 fi
+
+docker-compose exec php bash

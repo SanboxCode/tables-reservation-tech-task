@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Table{% endblock %}
+
+{% block body %}
+    <h1>Create new Table</h1>
+    {{ include('table/_form.html.twig') }}
+    <a class="btn btn-secondary" href="{{ path('app_table_index') }}">Back to list</a>
+{% endblock %}
