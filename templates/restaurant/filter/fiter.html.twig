@@ -1,0 +1,9 @@
+{{ form_start(form) }}
+    <div class="filter-input">
+        {{ form_row(form.titleFilter, {'attr': { 'class': 'default-input search js-prize-search pt-2 pl-3 pb-2 shadow-weak'}}) }}
+    </div>
+    <div class="clear-filter">
+        <a class="btn btn-danger" href="{{ path('app_restaurant_index') }}">Clear</a>
+    </div>
+{{ form_end(form) }}
+

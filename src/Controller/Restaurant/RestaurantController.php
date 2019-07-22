@@ -3,8 +3,9 @@
 namespace App\Controller\Restaurant;
 
 use App\Entity\Restaurant\Restaurant;
+use App\Form\Restaurant\RestaurantFilterType;
 use App\Form\Restaurant\RestaurantType;
-use App\Repository\RestaurantRepository;
+use App\Service\RestaurantService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,19 +20,24 @@ class RestaurantController extends AbstractController
 {
     /**
      * @Route("/", name="app_restaurant_index", methods={"GET"})
-     * @param Request              $request
-     * @param RestaurantRepository $restaurantRepository
+     * @param Request           $request
+     * @param RestaurantService $restaurantService
      *
      * @return Response
      */
-    public function index(Request $request, RestaurantRepository $restaurantRepository): Response
+    public function index(Request $request, RestaurantService $restaurantService): Response
     {
 
+        $form = $this->createForm(RestaurantFilterType::class);
+        $form->handleRequest($request);
+
+        $filter = $form->getData();
 
         return $this->render(
             'restaurant/index.html.twig',
             [
-                'restaurants' => $restaurantRepository->findAll(),
+                'restaurants' => $restaurantService->getAllFiltered($filter),
+                'form' => $form->createView(),
             ]
         );
     }

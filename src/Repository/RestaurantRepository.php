@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Restaurant\Restaurant;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -19,32 +20,21 @@ class RestaurantRepository extends ServiceEntityRepository
         parent::__construct($registry, Restaurant::class);
     }
 
-    // /**
-    //  * @return Restaurant[] Returns an array of Restaurant objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @param array|null $filter
+     *
+     * @return QueryBuilder
+     */
+    public function createFiltered(array $filter = null)
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $qb = $this->createQueryBuilder('r');
 
-    /*
-    public function findOneBySomeField($value): ?Restaurant
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        if ($filter['titleFilter']) {
+            $qb
+                ->andwhere($qb->expr()->like('r.title', ':filter'))
+                ->setParameter('filter', '%'.$filter['titleFilter'].'%');
+        }
+
+        return $qb;
     }
-    */
 }

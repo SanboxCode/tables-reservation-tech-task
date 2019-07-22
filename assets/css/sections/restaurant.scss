@@ -1,7 +1,37 @@
 .restaurant-img {
   width: 50%;
 }
+
 .list-image {
   max-width: 200px;
   height: auto;
+}
+
+#restaurant_filter_titleFilter {
+  width: 100%;
+}
+
+#restaurant-filter-form {
+  position: relative;
+}
+
+.restaurant-filter-table-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+
+  form {
+    padding: 0;
+
+    .filter-input {
+      margin: 0;
+    }
+  }
+
+  .clear-filter {
+    width: 65px;
+    right: 5px;
+    top: 5px;
+    position: absolute;
+  }
 }

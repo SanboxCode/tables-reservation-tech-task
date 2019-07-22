@@ -8,7 +8,10 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Title</th>
+            <th class="restaurant-filter-table-heading">
+                <span class="restaurant-title">Title</span>
+                {% include 'restaurant/filter/fiter.html.twig' %}
+            </th>
             <th>Photo</th>
             <th>Identification number</th>
             <th>Status</th>
@@ -29,8 +32,10 @@
                 <td>{{ restaurant.status|status }}</td>
                 <td>{{ restaurant.getActiveTables }}</td>
                 <td>
-                    <a class="btn btn-secondary" href="{{ path('app_restaurant_show', {'id': restaurant.id}) }}">show</a>
-                    <a class="btn btn-secondary" href="{{ path('app_restaurant_edit', {'id': restaurant.id}) }}">edit</a>
+                    <a class="btn btn-secondary"
+                       href="{{ path('app_restaurant_show', {'id': restaurant.id}) }}">show</a>
+                    <a class="btn btn-secondary"
+                       href="{{ path('app_restaurant_edit', {'id': restaurant.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}

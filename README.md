@@ -9,3 +9,4 @@
 8. Create db schema `sf doctrine:schema:update --force`
 9. Seed db `sf doctrine:fixtures:load -n`
 10. Should be good to go `127.0.0.1:8080`
+11. Login with seeded user -> username: `admin`, password: `pass`
